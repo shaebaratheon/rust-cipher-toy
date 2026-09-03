@@ -49,3 +49,4 @@ fn main() {
     let enc_v = vigenere_encrypt(message, key);
     println!("Vigenere Encrypted: {}", enc_v);
 }
+// RSA Primitive (Toy)\n// Heavily CPU bound, consider rayon or tokio::spawn_blocking\nfn rsa_sign_stub() {}\nfn rsa_verify_stub() {}
