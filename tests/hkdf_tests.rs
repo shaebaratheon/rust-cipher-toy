@@ -1,0 +1,18 @@
+use rust_cipher_toy::hkdf::Hkdf;
+
+#[test]
+fn test_hkdf_rfc5869_basic() {
+    let ikm = [0x0bu8; 22];
+    let salt = [
+        0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+        0x08, 0x09, 0x0a, 0x0b, 0x0c,
+    ];
+    let info = [0xf0, 0xf1, 0xf2, 0xf3, 0xf4, 0xf5, 0xf6, 0xf7, 0xf8, 0xf9];
+
+    let prk = Hkdf::extract(&salt, &ikm);
+    assert_ne!(prk, [0u8; 32]);
+
+    let mut okm = [0u8; 42];
+    Hkdf::expand(&prk, &info, &mut okm);
+    assert_ne!(okm, [0u8; 42]);
+}
